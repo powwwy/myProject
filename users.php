@@ -15,25 +15,28 @@
         
         <?php
         include 'connect.php';
-        $sql = "SELECT userID, name, email FROM users ORDER BY name ASC";
+        $sql = "SELECT name, email FROM users ORDER BY name ASC";
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {
             echo '<input type="text" class="search-box" placeholder="Search users..." id="searchInput">';
             echo '<table class="users-table">';
             echo '<thead><tr>';
-            echo '<th>ID</th>';
+            echo '<th>Number</th>';
             echo '<th>Name</th>';
             echo '<th>Email</th>';
             echo '</tr></thead>';
             echo '<tbody>';
             
             while($row = $result->fetch_assoc()) {
+                $users = range(1, $result->num_rows);
+                static $i = 0;
                 echo '<tr>';
-                echo '<td class="id-cell">' . htmlspecialchars($row["userID"]) . '</td>';
+                echo '<td class="id-cell">' .htmlspecialchars($users[$i]). '</td>';
                 echo '<td class="name-cell">' . htmlspecialchars($row["name"]) . '</td>';
                 echo '<td class="email-cell">' . htmlspecialchars($row["email"]) . '</td>';
                 echo '</tr>';
+                $i++;
             }
             
             echo '</tbody>';

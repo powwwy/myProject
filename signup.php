@@ -7,7 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    // Simple validation
+    $stmt = $conn->prepare("SELECT userID FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        echo "<p style='color: red;'>Email is already registered. Please use a different email.</p>";
+        $stmt->close();
+        $conn->close();
+        exit;
+    }
     $errors = [];
     if ($name === '') $errors[] = "Name is required.";
     if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Valid email is required.";
@@ -16,14 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Prepare and bind
         $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $name, $email, $hashedPassword);
 
         if ($stmt->execute()) {
-            sendEmail($email, 'signup');
+           $_SESSION['name'] = $name;
+            sendEmail($email, 'signup', $name);
             header('Location: login.php');
+            
             exit;
         } else {
             echo "<p>Error: " . htmlspecialchars($stmt->error) . "</p>";

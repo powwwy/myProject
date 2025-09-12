@@ -1,0 +1,27 @@
+# Git Workflow for Task App Project 152531
+
+1. Initialize the local repository
+   git init
+
+2. Add all project files to staging
+   git add .
+
+3. Commit the initial version
+   git commit -m ""
+
+4. Publish the local repo to the remote GitHub repository
+
+5. Push the initial commit to GitHub
+   git branch -M main
+   git push -u origin main
+
+6. Make changes to mail file and signup form
+
+7. Stage the changes
+   git add .
+
+8. Commit
+   git commit -m "Added email validation, welcome email, and numbered user list"
+
+9. Push the updated project to GitHub
+   git push

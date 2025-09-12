@@ -14,10 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Here you would save the user to a database
-        // For demonstration, just show a success message
-        echo "<p>Signup successful! Welcome, " . htmlspecialchars($name) . ".</p>";
         exit;
     }
 }

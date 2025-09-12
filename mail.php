@@ -107,7 +107,7 @@ function getSignupTemplate($email, $name) {
             <h1>Welcome Aboard!</h1>
         </div>
         <div class="content">
-            <h2>Hello! ' .$name.'</h2>
+            <h2>Hello, ' .$name.'!</h2>
             <p>Thank you for signing up for our project. We\'re excited to have you on board.</p>
             <p>Your account has been successfully created with the email: <strong>'.$email.'</strong></p>
             <p>If you have any questions, feel free to contact our support team.</p>

@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
+    
     if ($stmt->num_rows > 0) {
         echo "<p style='color: red;'>Email is already registered. Please use a different email.</p>";
         $stmt->close();
